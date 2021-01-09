@@ -1,38 +1,37 @@
-#include<iostream>
-#include<string>
-#include<map>
-#include<unordered_set>
-#include<algorithm>
-#include<set>
+#include<bits/stdc++.h>
 using namespace std;
-
 int main()
 {
- set<int>Set;
-int arr[]={1,2,3,4};
-
-int n=sizeof(arr)/sizeof(arr[0]);
-for (int i=0;i<n;i++)
-{
-Set.insert(arr[i]);
-}
-
-int count=1;
-int max=-1;
-auto i2=(--Set.end());
-for(auto i=Set.begin();i!=i2;i++)
-{
-    if((*(next(i))-*i)==1)
-    {
-    count=count+1;
-    }
-    else
-    {
-        count=1;
-    }
-    if (count>max)
-    max=count;
+    int arr[]={10,15,9,1,11,8,6,5,13,10,2};
+    int n=sizeof(arr)/sizeof(arr[0]);
+    unordered_map<int, bool> m;
     
-}
-cout<<max<<" ";
+    for(int i=0;i<n;i++)
+    m[arr[i]]=true;
+
+    for(int i=0;i<n;i++)
+    {
+        if(m.find(arr[i]-1)!=m.end())
+        m[arr[i]]=false;
+    }
+     int res=1;
+    for(auto itr:m)
+    {
+        int x=itr.first;
+        int len=1;
+        if(itr.second == 1)
+        {
+            while(m.find(x+1)!=m.end())
+            {
+                len++;
+                x++;
+            }
+            res=max(res,len);
+
+        }
+    }
+
+    cout<<res;
+
+
 }
